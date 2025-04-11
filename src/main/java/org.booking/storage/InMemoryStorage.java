@@ -11,7 +11,7 @@ public class InMemoryStorage implements Storage {
     private final Map<String, Object> storage = new HashMap<>();
 
     @Override
-    public  <T> List<T> getEntities(Class<T> clazz){
+    public <T> List<T> getEntities(Class<T> clazz){
         return storage.keySet().stream()
                 .filter(k-> k.contains(clazz.getName().toLowerCase()))
                 .map(k->clazz.cast(storage.get(k)))
@@ -31,13 +31,13 @@ public class InMemoryStorage implements Storage {
     }
 
     @Override
-    public void remove(BaseEntity t) {
-        storage.remove(getKey(t.getId(), t.getClass()));
+    public Object remove(BaseEntity t) {
+        return storage.remove(getKey(t.getId(), t.getClass()));
     }
 
     @Override
-    public void update(BaseEntity t) {
-        storage.put(getKey(t.getId(), t.getClass()), t);
+    public Object update(BaseEntity t) {
+        return storage.put(getKey(t.getId(), t.getClass()), t);
     }
 
     private <T> String getKey(long id, Class<T> clazz) {
