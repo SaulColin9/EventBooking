@@ -17,7 +17,7 @@ public interface BookingFacade {
      * Gets event by its id.
      * @return Event.
      */
-    Event getEventById();
+    Event getEventById(long id);
 
     /**
      * Get list of events by matching title. Title is matched using 'contains' approach.
