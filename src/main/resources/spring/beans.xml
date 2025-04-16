@@ -34,6 +34,12 @@
         <property name="storage" ref="storage"/>
     </bean>
 
-    <bean id="storage" class="org.booking.storage.InMemoryStorage"/>
+    <bean id="storage" class="org.booking.storage.InMemoryStorage" init-method="init">
+        <property name="initDataPath" value="${init-file}"/>
+    </bean>
+
+    <bean id="placeholderConfig" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="location" value="classpath:application.properties"/>
+    </bean>
 
 </beans>

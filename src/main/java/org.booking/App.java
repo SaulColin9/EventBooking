@@ -1,5 +1,6 @@
 package org.booking;
 
+import org.booking.facade.BookingFacade;
 import org.booking.model.Event;
 import org.booking.model.EventImpl;
 import org.booking.model.User;
@@ -42,11 +43,15 @@ public class App
         EventService eventService = (EventService) context.getBean("eventService");
         UserService userService = (UserService) context.getBean("userService");
         TicketService ticketService = (TicketService) context.getBean("ticketService");
-        Event event = new EventImpl();
-        event.setId(1);
-        event.setDate(new Date());
-        event.setTitle("Hello");
-        eventService.createEvent(event);
-        System.out.println(eventService.getEventsByTitle("Hello", 1,1));
+        BookingFacade bookingFacade = (BookingFacade) context.getBean("bookingFacade");
+//        Event event = new EventImpl();
+//        event.setId(1);
+//        event.setDate(new Date());
+//        event.setTitle("Hello");
+//        eventService.createEvent(event);
+//        System.out.println(eventService.getEventsByTitle("Hello", 1,1));
+        User someUser = bookingFacade.getUserById(1);
+        System.out.println(bookingFacade.getBookedTickets(someUser, 1,1));
+        System.out.println(bookingFacade.getEventById(1));
     }
 }
