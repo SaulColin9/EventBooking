@@ -35,8 +35,10 @@
     </bean>
 
     <bean id="storage" class="org.booking.storage.InMemoryStorage" init-method="init">
-        <property name="initDataPath" value="${init-file}"/>
+        <property name="idGenerator" ref="idGenerator"/>
     </bean>
+
+    <bean id="idGenerator" class="org.booking.storage.id.IncrementalIdGenerator" />
 
     <bean id="placeholderConfig" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="location" value="classpath:application.properties"/>

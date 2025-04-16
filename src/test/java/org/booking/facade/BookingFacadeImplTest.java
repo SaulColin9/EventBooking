@@ -3,11 +3,11 @@ package org.booking.facade;
 
 import org.booking.model.*;
 import org.booking.storage.dao.UserDao;
+import org.booking.storage.id.IdGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -23,20 +23,24 @@ class BookingFacadeImplTest {
     @Autowired
     private BookingFacade bookingFacade;
 
+    @Autowired
+    private IdGenerator idGenerator;
+
     @BeforeEach
     void setUp() {
         assertThat(bookingFacade).isNotNull();
+        idGenerator.reset();
     }
 
     @Test
     void testCreateAndGetEvent() {
         Event event = new EventImpl();
-        event.setId(5);
         event.setTitle("Spring Integration Test Workshop");
         event.setDate(new Date());
 
         Event createdEvent = bookingFacade.createEvent(event);
 
+        assertThat(createdEvent.getId()).isEqualTo(1);
         assertThat("Spring Integration Test Workshop").isEqualTo(createdEvent.getTitle());
 
         Event fetchedEvent = bookingFacade.getEventById(createdEvent.getId());
@@ -50,15 +54,18 @@ class BookingFacadeImplTest {
         Event event = new EventImpl();
         event.setTitle("Integration Event 1");
         event.setDate(new Date());
-        bookingFacade.createEvent(event);
+        Event createdEvent1 = bookingFacade.createEvent(event);
+        assertThat(createdEvent1.getId()).isEqualTo(1);
+
 
         event = new EventImpl();
         event.setTitle("Integration Event Exact Match");
         event.setDate(new Date());
-        bookingFacade.createEvent(event);
+        Event createdEvent2 = bookingFacade.createEvent(event);
 
         List<Event> events = bookingFacade.getEventsByTitle("Integration Event Exact Match", 10, 1);
 
+        assertThat(createdEvent2.getId()).isEqualTo(2);
         assertThat(events.size()).isEqualTo(1);
         assertThat(events.get(0).getTitle()).isEqualTo("Integration Event Exact Match");
     }
