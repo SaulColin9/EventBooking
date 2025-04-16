@@ -30,7 +30,8 @@ public class InMemoryStorage implements Storage {
     @Override
     public <T> T get(long id, Class<T> clazz) {
         String key = getKey(id, clazz);
-        return clazz.cast(storage.get(key));
+        Object retrievedEntity = storage.get(key);
+        return retrievedEntity == null? null: clazz.cast(retrievedEntity);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class EventDao implements Dao<Event> {
 
     @Override
     public Optional<Event> get(long id) {
-        return Optional.of(storage.get(id, Event.class));
+        return Optional.ofNullable(storage.get(id, Event.class));
     }
 
     @Override

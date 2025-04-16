@@ -10,7 +10,7 @@ public class TicketDao implements Dao<Ticket> {
     private Storage storage;
     @Override
     public Optional<Ticket> get(long id) {
-        return Optional.of(storage.get(id, Ticket.class));
+        return Optional.ofNullable(storage.get(id, Ticket.class));
     }
 
     @Override

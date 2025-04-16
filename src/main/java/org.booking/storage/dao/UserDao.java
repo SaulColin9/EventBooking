@@ -11,7 +11,7 @@ public class UserDao implements Dao<User> {
 
     @Override
     public Optional<User> get(long id) {
-        return Optional.of(storage.get(id, User.class));
+        return Optional.ofNullable(storage.get(id, User.class));
     }
 
     @Override
