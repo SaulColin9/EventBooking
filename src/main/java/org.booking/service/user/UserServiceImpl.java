@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService{
     private UserDao userDao;
-    private final static Logger logger = LoggerFactory.getLogger(EventServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public User getUserById(long userId) {

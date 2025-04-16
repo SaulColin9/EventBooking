@@ -2,7 +2,6 @@ package org.booking.storage.dao;
 
 import org.booking.model.Event;
 import org.booking.storage.Storage;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

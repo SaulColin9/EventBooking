@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class TicketServiceImpl implements TicketService{
     private TicketDao ticketDao;
-    private final static Logger logger = LoggerFactory.getLogger(EventServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {

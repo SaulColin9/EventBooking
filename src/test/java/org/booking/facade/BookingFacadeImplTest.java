@@ -1,6 +1,5 @@
 package org.booking.facade;
 
-
 import org.booking.model.*;
 import org.booking.storage.id.IdGenerator;
 import org.junit.jupiter.api.BeforeEach;

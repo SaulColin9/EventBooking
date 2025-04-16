@@ -3,7 +3,6 @@ package org.booking.service.ticket;
 import org.booking.model.Event;
 import org.booking.model.Ticket;
 import org.booking.model.User;
-import org.booking.storage.dao.TicketDao;
 
 import java.util.List;
 

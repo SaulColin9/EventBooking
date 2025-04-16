@@ -1,7 +1,6 @@
 package org.booking.service.event;
 
 import org.booking.model.Event;
-import org.booking.storage.InMemoryStorage;
 import org.booking.storage.dao.EventDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

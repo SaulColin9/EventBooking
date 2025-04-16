@@ -4,7 +4,7 @@ package org.booking.model;
  * Created by maksym_govorischev.
  */
 public interface Ticket extends BaseEntity{
-    public enum Category {STANDARD, PREMIUM, BAR}
+    enum Category {STANDARD, PREMIUM, BAR}
 
     /**
      * Ticket Id. UNIQUE.
