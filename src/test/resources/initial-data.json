@@ -1,0 +1,48 @@
+{
+  "event:1": {
+    "id": 1,
+    "title": "Concert Night",
+    "date": "2023-11-10T19:00:00"
+  },
+  "event:2": {
+    "id": 2,
+    "title": "Art Exhibition",
+    "date": "2023-12-01T10:00:00"
+  },
+  "ticket:1": {
+    "id": 1,
+    "eventId": 1,
+    "userId": 1,
+    "category": "BAR",
+    "place": 45
+  },
+  "ticket:2": {
+    "id": 2,
+    "eventId": 1,
+    "userId": 2,
+    "category": "PREMIUM",
+    "place": 12
+  },
+  "ticket:3": {
+    "id": 3,
+    "eventId": 2,
+    "userId": 1,
+    "category": "STANDARD",
+    "place": 78
+  },
+  "user:1": {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com"
+  },
+  "user:2": {
+    "id": 2,
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com"
+  },
+  "user:3": {
+    "id": 3,
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com"
+  }
+}
