@@ -2,11 +2,14 @@ package org.booking.service.event;
 
 import org.booking.model.Event;
 import org.booking.storage.dao.EventDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class EventServiceImpl implements EventService{
     private EventDao eventDao;
 
@@ -47,5 +50,10 @@ public class EventServiceImpl implements EventService{
     public boolean deleteEvent(long eventId) {
         Event eventToDelete = eventDao.get(eventId).orElseThrow(IllegalArgumentException::new);
         return eventDao.delete(eventToDelete).isPresent();
+    }
+
+    @Autowired
+    public void setEventDao(EventDao eventDao) {
+        this.eventDao = eventDao;
     }
 }

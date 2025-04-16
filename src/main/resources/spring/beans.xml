@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="org.booking"/>
+    <bean id="bookingFacade" class="org.booking.facade.BookingFacadeImpl">
+        <constructor-arg ref="eventService" />
+        <constructor-arg ref="ticketService" />
+        <constructor-arg ref="userService" />
+    </bean>
+
+    <bean id="eventService" class="org.booking.service.event.EventServiceImpl">
+        <property name="eventDao" ref="eventDao"/>
+    </bean>
+    <bean id="userService" class="org.booking.service.user.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="ticketService" class="org.booking.service.ticket.TicketServiceImpl">
+        <property name="ticketDao" ref="ticketDao"/>
+    </bean>
+
+    <bean id="eventDao" class="org.booking.storage.dao.EventDao">
+        <property name="storage" ref="storage"/>
+    </bean>
+    <bean id="ticketDao" class="org.booking.storage.dao.TicketDao">
+        <property name="storage" ref="storage"/>
+    </bean>
+    <bean id="userDao" class="org.booking.storage.dao.UserDao">
+        <property name="storage" ref="storage"/>
+    </bean>
+
+    <bean id="storage" class="org.booking.storage.InMemoryStorage"/>
+
+</beans>

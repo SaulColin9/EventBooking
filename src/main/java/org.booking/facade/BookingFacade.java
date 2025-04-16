@@ -64,7 +64,7 @@ public interface BookingFacade {
      * Gets user by its id.
      * @return User.
      */
-    User getUserById();
+    User getUserById(long userId);
 
     /**
      * Gets user by its email. Email is strictly matched.
