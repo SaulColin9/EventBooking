@@ -1,6 +1,7 @@
 package org.booking.storage;
 
 import org.booking.model.BaseEntity;
+import org.booking.storage.id.IdGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 public class InMemoryStorage implements Storage {
     private final Map<String, Object> storage = new HashMap<>();
     private final static Logger logger = LoggerFactory.getLogger(InMemoryStorage.class);
+
+    private IdGenerator idGenerator;
 
     private String initDataPath;
 
@@ -32,6 +35,7 @@ public class InMemoryStorage implements Storage {
 
     @Override
     public Object add(BaseEntity t) {
+        t.setId(idGenerator.getNewId(getClassIdentifier(t.getClass())));
         String key = getKey(t.getId(), t.getClass());
         storage.put(key, t);
         return t;
@@ -48,12 +52,30 @@ public class InMemoryStorage implements Storage {
     }
 
     private void init(){
-        logger.info("Initializing storage...");
-        try {
-            storage.putAll(JsonToObject.extractObjects(initDataPath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (initDataPath != null){
+            logger.info("Initializing storage...");
+            try {
+                storage.putAll(JsonToObject.extractObjects(initDataPath));
+                idGenerator.setInitialIds(getHighestIds());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+    }
+
+    private Map<String, Long> getHighestIds() {
+        Map<String, Long> highestIds = new HashMap<>();
+        for (Map.Entry<String, Object> entry : storage.entrySet()) {
+            String key = entry.getKey();
+            BaseEntity entity = (BaseEntity) entry.getValue();
+
+            String entityType = key.split(":")[0];
+
+            long id = entity.getId();
+
+            highestIds.merge(entityType, id, Math::max);
+        }
+        return highestIds;
     }
 
     private <T> String getKey(long id, Class<T> clazz) {
@@ -84,8 +106,11 @@ public class InMemoryStorage implements Storage {
         return firstWord.toString();
     }
 
-
     public void setInitDataPath(String initDataPath) {
         this.initDataPath = initDataPath;
+    }
+
+    public void setIdGenerator(IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 }
