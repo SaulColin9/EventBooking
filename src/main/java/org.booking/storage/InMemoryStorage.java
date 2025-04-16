@@ -19,8 +19,8 @@ public class InMemoryStorage implements Storage {
     @Override
     public <T> List<T> getEntities(Class<T> clazz){
         return storage.keySet().stream()
-                .filter(k-> k.contains(clazz.getSimpleName().toLowerCase()))
-                .map(k->clazz.cast(storage.get(k)))
+                .filter(k-> k.contains(getClassIdentifier(clazz)))
+                .map(k-> clazz.cast(storage.get(k)))
                 .collect(Collectors.toList());
     }
 
@@ -33,7 +33,8 @@ public class InMemoryStorage implements Storage {
     @Override
     public Object add(BaseEntity t) {
         String key = getKey(t.getId(), t.getClass());
-        return storage.put(key, t);
+        storage.put(key, t);
+        return t;
     }
 
     @Override
@@ -56,8 +57,33 @@ public class InMemoryStorage implements Storage {
     }
 
     private <T> String getKey(long id, Class<T> clazz) {
-        return String.format("%s:%s", clazz.getSimpleName().toLowerCase(), id);
+        return String.format("%s:%s", getClassIdentifier(clazz), id);
     }
+
+    private <T> String getClassIdentifier(Class<T> clazz){
+        String className = clazz.getSimpleName();
+        String camelCase = Character.toLowerCase(className.charAt(0)) + className.substring(1);
+
+        return getFirstWord(camelCase);
+    }
+
+    private String getFirstWord(String camelCaseString) {
+        if (camelCaseString == null || camelCaseString.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder firstWord = new StringBuilder();
+        for (int i = 0; i < camelCaseString.length(); i++) {
+            char c = camelCaseString.charAt(i);
+            if (Character.isUpperCase(c)) {
+                break;
+            }
+            firstWord.append(c);
+        }
+
+        return firstWord.toString();
+    }
+
 
     public void setInitDataPath(String initDataPath) {
         this.initDataPath = initDataPath;
