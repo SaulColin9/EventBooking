@@ -1,7 +1,6 @@
 package org.booking.service.user;
 
 import org.booking.model.User;
-import org.booking.service.event.EventServiceImpl;
 import org.booking.storage.dao.UserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

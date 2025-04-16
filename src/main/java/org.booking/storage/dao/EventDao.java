@@ -31,7 +31,7 @@ public class EventDao implements Dao<Event> {
 
     @Override
     public Optional<Event> delete(Event event) {
-        return Optional.of((Event) storage.remove(event));
+        return Optional.ofNullable((Event) storage.remove(event));
     }
 
     public void setStorage(Storage storage) {

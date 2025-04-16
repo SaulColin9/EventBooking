@@ -49,7 +49,9 @@ public class InMemoryStorage implements Storage {
 
     @Override
     public Object update(BaseEntity t) {
-        return storage.put(getKey(t.getId(), t.getClass()), t);
+        String k = getKey(t.getId(), t.getClass());
+        storage.put(k, t);
+        return t;
     }
 
     private void init(){

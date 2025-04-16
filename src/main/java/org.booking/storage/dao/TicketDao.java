@@ -30,7 +30,7 @@ public class TicketDao implements Dao<Ticket> {
 
     @Override
     public Optional<Ticket> delete(Ticket ticket) {
-        return Optional.of((Ticket) storage.remove(ticket));
+        return Optional.ofNullable((Ticket) storage.remove(ticket));
     }
 
     public void setStorage(Storage storage){

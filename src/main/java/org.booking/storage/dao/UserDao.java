@@ -31,7 +31,7 @@ public class UserDao implements Dao<User> {
 
     @Override
     public Optional<User> delete(User user) {
-        return Optional.of((User) storage.remove(user));
+        return Optional.ofNullable((User) storage.remove(user));
     }
 
     public void setStorage(Storage storage) {

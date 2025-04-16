@@ -126,7 +126,7 @@ class BookingFacadeImplTest {
 
     @Test
     void testGetEventsForDay() {
-        Date targetDate = new Date(2023, 11, 15); // Target date
+        Date targetDate = new Date(2023, 11, 15);
         Event event1 = new EventImpl();
         event1.setTitle("Morning Concert");
         event1.setDate(targetDate);
