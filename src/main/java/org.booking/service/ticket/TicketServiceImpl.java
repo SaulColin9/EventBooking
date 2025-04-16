@@ -4,7 +4,6 @@ import org.booking.model.Event;
 import org.booking.model.Ticket;
 import org.booking.model.TicketImpl;
 import org.booking.model.User;
-import org.booking.service.event.EventServiceImpl;
 import org.booking.storage.dao.TicketDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +43,7 @@ public class TicketServiceImpl implements TicketService{
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
         logger.info("Retrieving booked tickets for event with id {}", event.getId());
         return ticketDao.getAll().stream()
-                .filter(ticket -> ticket.getUserId() == event.getId())
+                .filter(ticket -> ticket.getEventId() == event.getId())
                 .skip((long) (pageNum - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());    }
