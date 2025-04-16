@@ -1,10 +1,9 @@
 package org.booking.storage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.booking.model.BaseEntity;
-import org.springframework.context.annotation.PropertySource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class InMemoryStorage implements Storage {
     private final Map<String, Object> storage = new HashMap<>();
+    private final static Logger logger = LoggerFactory.getLogger(InMemoryStorage.class);
 
     private String initDataPath;
 
@@ -47,6 +47,7 @@ public class InMemoryStorage implements Storage {
     }
 
     private void init(){
+        logger.info("Initializing storage...");
         try {
             storage.putAll(JsonToObject.extractObjects(initDataPath));
         } catch (IOException e) {
